@@ -22,7 +22,7 @@ I’ve separated containers of pallets, boxes, invoices and a few other sections
 
 Each page has been built in a folder with the same name of the task in a “Views” folder. You can build and run each section separately using “npm start”.
 
-## # How to build:
+## How to build:
 
 All the front end and angular codes are located in Views folder
 
@@ -52,7 +52,13 @@ PostgreSQL has been used for database but any database can be used if you prefer
 
 <pre>sh rundocker.sh </pre>
 
+## Database
 You can use this docker in github to create your database:
 
 <pre>git clone https://github.com/newkisoft/newki-sql-docker.git</pre>
 
+## Main docker
+
+Run the main project using this docker
+
+<pre>git clone https://github.com/newkisoft/newki-inventory-main-docker.git</pre>
