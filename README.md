@@ -68,3 +68,9 @@ Run the main project using this docker
 Run the pallet project using this docker
 
 <pre>git clone https://github.com/newkisoft/newki-inventory-pallet-docker.git</pre>
+
+## Libraries
+
+Some classes are shared betwean micro projects and the main project. I use the project below and Baget to share the classes
+
+<pre>git clone https://github.com/newkisoft/newki-libraries.git</pre>
