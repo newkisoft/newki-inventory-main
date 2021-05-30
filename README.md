@@ -62,3 +62,9 @@ You can use this docker in github to create your database:
 Run the main project using this docker
 
 <pre>git clone https://github.com/newkisoft/newki-inventory-main-docker.git</pre>
+
+## Pallet docker
+
+Run the pallet project using this docker
+
+<pre>git clone https://github.com/newkisoft/newki-inventory-pallet-docker.git</pre>
