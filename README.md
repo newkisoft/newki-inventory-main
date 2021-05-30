@@ -74,3 +74,10 @@ Run the pallet project using this docker
 Some classes are shared between micro projects and the main project. I use the project below and Baget to share the classes
 
 <pre>git clone https://github.com/newkisoft/newki-libraries.git</pre>
+
+
+## Devops
+
+Jenkins and Baget servers
+
+<pre>git clone https://github.com/newkisoft/newki-libraries.git</pre>
