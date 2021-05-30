@@ -1,0 +1,124 @@
+
+@{
+    ViewData["Title"] = "Invoice";
+    Layout = null;    
+}
+
+@model inventory.Models.InvoiceReport.InvoiceReport
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" >
+
+<div style="background-image: url(/images/receipt-top.png);background-repeat: no-repeat;width: 100%;">
+<div style="padding-top:225px">
+    <div style="float:left;margin-left:45px;width: 343px;height: 180px;">
+        <p style="font-size: 17px;">@Model.Customer.CustomerName <br/> @Model.Customer.Address</p>
+    </div>
+    <div style="float:left;margin-left:214px;margin-top:5px">  
+        <p>@(Model.StateInvoiceNumber.ToString("000000"))</p>
+    </div>
+    <div style="float:left;margin-left: -23px;margin-top: 52px;">
+        <p style="font-size:24px;font-weight:bold; "> @Html.DisplayFor( model => model.InvoiceDate )</p>
+    </div>
+</div>
+<div style="clear: both;">    
+</div>
+<div style="margin-left:160px;margin-top:15px">
+    <p style="font-size: 17px"> @Model.Customer.Vergi </p>
+</div>
+</div>
+<table  style="margin-top:27px;margin-left:27px;margin-bottom:10px;width:735px; border-collapse: collapse;" >
+   <thead>
+       <tr>
+           <th style="width:365px;border:1px solid #4a4340;">AÇIKLAMA</th>
+           <th style="width:100px;border:1px solid #4a4340;">ADET</th>
+           <th style="width:100px;border:1px solid #4a4340;">BiRiM FiYATI</th>
+           <th style="width:100px;border:1px solid #4a4340;">TUTARI</th>
+       </tr>
+   </thead>
+    <tbody>
+        @for(var i=0;i<Model.InvoicePallets.Count;i++)
+        {            
+                var invoicePallet = Model.InvoicePallets[i];
+                var pallet = invoicePallet.Pallet;
+            <tr style="height:29px;">            
+                <td style="width:365px;border:1px solid #4a4340;">@pallet.YarnType @pallet.Denier @pallet.Filament @pallet.Intermingle @pallet.ColorCode</td>                                 
+                <td style="width:100px;border:1px solid #4a4340;">@invoicePallet.Weight</td>
+                <td style="width:100px;border:1px solid #4a4340;">@Math.Round(pallet.Price,3,MidpointRounding.ToEven).ToString()</td>
+                <td style="width:100px;border:1px solid #4a4340;">@Math.Round(invoicePallet.Weight*@pallet.Price,3,MidpointRounding.ToEven).ToString()</td>
+              </tr>              
+            
+        }  
+         @for(var i=0;i<Model.InvoiceBoxes.Count;i++)
+        {            
+                var invoiceBox = Model.InvoiceBoxes[i];
+                var box = invoiceBox.Box;
+            <tr style="height:29px;">            
+                <td style="width:365px;border:1px solid gray;">@box.YarnType @box.Denier @box.Filament @box.Intermingle @box.ColorCode</td>                                 
+                <td style="width:100px;border:1px solid gray;">@box.Weight</td>
+                <td style="width:100px;border:1px solid gray;">@Math.Round(box.Price,3,MidpointRounding.ToEven).ToString()</td>
+                <td style="width:100px;border:1px solid gray;">@Math.Round(invoiceBox.Weight*@box.Price,3,MidpointRounding.ToEven).ToString()</td>
+              </tr>
+        }   
+         @for(var i=0;i<(15 - (Model.InvoiceBoxes.Count + Model.InvoiceBoxes.Count)) ;i++)
+        {
+           
+            <tr style="height:29px;">            
+                <td style="width:365px;border:1px solid gray;"></td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+              </tr>
+
+        }
+            <tr style="height:29px;">             
+                <td style="width:365px;border:1px solid gray;">KUR: @Model.ExchangeRate</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+              </tr>
+             <tr style="height:29px;border:1px solid gray;">            
+                <td style="width:365px;border:1px solid gray;">$ @Model.TotalUsd = @Math.Round(Model.TotalUsd * Model.ExchangeRate,3,MidpointRounding.ToEven)</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+             </tr>
+            <tr style="height:29px;border:1px solid gray;">            
+                <td style="width:365px;border:1px solid gray;">Indirim:$ @Model.Discount</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+             </tr>
+            <tr style="height:29px;">             
+                <td style="width:365px;border:1px solid gray;">Number of boxes: @Model.InvoiceBoxes.Count</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+              </tr>
+             <tr style="height:29px;border:1px solid gray;">            
+                <td style="width:365px;border:1px solid gray;">Number of pallets: @Model.InvoicePallets.Count</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+             </tr>
+             <tr style="height:29px;border:1px solid gray;">            
+                <td style="width:365px;border:1px solid gray;">Total weight: @Math.Round(Model.TotalWeight,3,MidpointRounding.ToEven)</td>                                 
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+                <td style="width:100px;border:1px solid gray;"></td>
+             </tr>
+
+
+    </tbody>
+  </table>
+     <div style="background-image: url(/images/receipt-bottom.png);background-repeat: no-repeat;width: 100%;height: 100%;">
+    <div style="float:left;width: 386px;margin-left: 86px;margin-top: 23px;">@Model.AmountInWords</div>
+    <div style="float:left;margin-left: 152px;margin-top: -10px;">        
+        <p>@Math.Round(Model.TotalUsd - Model.Tax,3,MidpointRounding.ToEven)</p>
+        <table style="margin-left:-82px">
+            <tr><td style="width:75px">@Math.Round(Model.Kdv,3,MidpointRounding.ToEven)</td><td>@Math.Round(Model.Tax,3,MidpointRounding.ToEven)</td></tr>        
+        </table>
+        <p>@Math.Round(Model.TotalUsd,3,MidpointRounding.ToEven)</p>
+    </div>
+</div>
+
+

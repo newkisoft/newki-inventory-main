@@ -1,0 +1,33 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a>  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="hidden-xs" (click)="Sort('LeaveId')" scope="col">#</th>
+        <th (click)="Sort('name')" scope="col">Name</th>
+        <th (click)="Sort('NormalizedName')" scope="col">Normalized Name</th>
+        <th  (click)="Sort('Email')" scope="col">ConcurrencyStamp</th>        
+      </tr>
+    </thead>    
+    <tbody>
+      <tr
+        *ngFor="let role of roles | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">{{role.Id}}</td>
+        <td  scope="col">{{ role.Name }}</td>
+        <td  scope="col">{{ role.NormalizedName}}</td>
+        <td  scope="col">{{ role.ConcurrencyStamp}}</td>        
+      </tr>
+    </tbody>
+  </table>
+  <hr/>  
+</div>

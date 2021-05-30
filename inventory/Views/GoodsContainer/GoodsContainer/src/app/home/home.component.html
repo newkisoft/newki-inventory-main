@@ -1,0 +1,39 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+    <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a
+  >  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th  (click)="Sort('Id')" scope="col">#</th>
+        <th  (click)="Sort('Name')" scope="col">Name</th>
+        <th  (click)="Sort('Name')" scope="col">Import Date</th>
+        <th  (click)="Sort('Name')" scope="col">Release Date</th>
+        <th  (click)="Sort('Name')" scope="col">Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let container of containers | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">
+          <a routerLink="/edit" [queryParams]="{id: container.GoodsContainerId}"  >
+          {{container.GoodsContainerId}}</a></td>
+        <td  scope="col">{{ container.Name }}</td>
+        <td  scope="col">{{ container.ImportDate }}</td>
+        <td  scope="col">{{ container.RelaseDate }}</td>
+        <td  scope="col">{{ stock.get(container.GoodsContainerId) }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr/>
+  <b>Total paid:</b>{{ totalPaid | number:'1.2-3' }}  <b>Total debt:</b> {{totalDebt | number:'1.2-3'}}  <b>Total diff:</b> {{totalPaid - totalDebt  | number:'1.2-3'}} 
+</div>

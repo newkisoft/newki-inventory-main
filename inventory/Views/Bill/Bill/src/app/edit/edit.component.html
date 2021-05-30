@@ -1,0 +1,136 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" (click)="Cancel()">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">
+      <div>
+        <input type="text" class="form-control ml-1 " name="VendorInvoiceNumber" placeholder="State Invoice Number"
+          matInput [(ngModel)]="bill.VendorInvoiceNumber" />
+      </div>
+         <div class="col">
+        <div class="d-group mb-3">
+          <input type="text" class="form-control col-lg" aria-label="Sizing example input"
+            [(ngModel)]="vendorSearchText" (keyup)="vendorSearchChange()" (click)="vendorSearchChange()"
+            aria-describedby="inputGroup-sizing-default" placeholder="Select a vendor">
+        </div>
+        <ul [ngClass]="vendorAutocomplete">
+          <li *ngFor="let vendor of vendors  | filter: vendorSearchText" class="list-group-item"
+            (click)="AddVendor(vendor.VendorId)" href="#">{{ vendor.VendorName }} </li>
+        </ul>
+      </div>
+      <p *ngIf="errorVendor" class="alert alert-danger" role="alert">*</p>      
+      <input class="col form-control" type="date" [ngModel]="bill.BillDate| date:'yyyy-MM-dd'"
+        (ngModelChange)="bill.BillDate = $event" />
+
+
+    </div>
+    <div class="form-group mt-3">
+      <label for="bill-name">Bill name</label>
+      <input id="bill-name" name="bill-name" class="input-group-text form-control" [(ngModel)]="bill.BillName"
+        placeholder="Bill name" />
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" *ngFor="let currency of currencies" (click)="SelectCurrencty(currency)"  [ngClass]=" selectedCurrency === currency? 'btn btn-warning':'btn btn-secondary'">{{currency}}</button>
+    </div>
+    <div class="form-group">
+      <label for="bill-amount">Exchange Rate</label>
+      <input id="bill-exchange-rate" name="bill-exchange-rate" type="number" class="input-group-text form-control"
+        [(ngModel)]="bill.ExchangeRate" placeholder="Exchange Rate" />
+    </div>
+
+    <div class="form-group">
+      <label for="bill-amount">Bill Amount</label>
+      <input id="bill-amount" type="number" name="bill-amount" class="input-group-text form-control" [(ngModel)]="bill.Amount"
+        placeholder="Bill Amount" />
+    </div>
+
+    <div class="form-group">
+      <label for="paid">Paid Amount</label>
+      <input id="paid" type="number" name="paid" class="input-group-text form-control" [(ngModel)]="bill.Paid"
+        placeholder="Paid Amount" />
+    </div>
+    <div class="form-group">
+      <label for="kdv">KDV</label>
+      <input name="kdv" id="kdv" type="number" class="input-group-text form-control" [(ngModel)]="bill.KDV" placeholder="KDV" />
+    </div>
+
+
+    <div class="form-group">
+      <label for="comment">Comment</label>
+      <input id="comment" name="comment" class="input-group-text form-control" [(ngModel)]="bill.Comment"
+        placeholder="Comments" />
+    </div>
+    <form [formGroup]="form" (ngSubmit)="OnUploadFile()">
+      <div class="form-group">
+        <label for="fatura">Fatura</label>
+        <input type="file" id="fatura" (change)="onFileChange($event)" #fileInput>
+      </div>
+      <button type="submit" class="btn btn-success">Upload <span class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true" *ngIf="uploading"></span></button>
+    </form>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>File name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of files ">
+          <td><a href="/api/AwsStorage/DownloadFile/{{file.File.FileName}}" target="blank">{{file.File.FileName}}</a>
+          </td>
+          <td><input class="btn btn-danger float-xl-right" (click)="RemoveFileItem(file)" type="button" value="X" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="ConfirmDelete()">
+        Delete
+      </button>
+    </div>
+
+
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(bill)" [attr.disabled]="saving ? '' : null" >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div *ngIf="deletemodal"  class="modal-backdrop fade show"></div>
+<div *ngIf="deletemodal"  id="exampleModalCenter" class="modal fade show"  tabindex="-1" role="dialog"
+  style="display: block; padding-right: 12px;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" (click)="CloseModal()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="CloseModal()">No</button>
+        <button type="button" class="btn btn-danger" (click)="Delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="errorVendor" class="alert alert-danger" role="alert">Fill up the vendor field before saving</p>
+</div>

@@ -1,0 +1,25 @@
+<div class=" box-header with-border">
+  <input [(ngModel)]="searchText" placeholder="search text goes here" class="form-control col-md-3 ml-2 mb-3" />
+  <a class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3" [routerLink]="['../insert']">Add</a>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th (click)="Sort('ContainerPlanId')" scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">EstimateArrivalDate</th>
+        <th scope="col">Comment</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of plans | filter: searchText" (dblclick)="doubleClick($event)">
+        <td scope="col">
+          <a routerLink="/edit" [queryParams]="{id: plan.ContainerPlanId}" >
+            {{plan.ContainerPlanId}}</a></td>
+        <td scope="col">{{ plan.Name }}</td>
+        <td scope="col">{{ plan.EstimateArrivalDate }}</td>
+        <td scope="col">{{ plan.Note | slice:0:20 }}</td>               
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+</div>

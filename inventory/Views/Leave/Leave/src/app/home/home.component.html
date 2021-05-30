@@ -1,0 +1,33 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a>  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="hidden-xs" (click)="Sort('LeaveId')" scope="col">#</th>
+        <th (click)="Sort('VendorName')" scope="col">Vendor Name</th>
+        <th (click)="Sort('LeaveStartDate')" scope="col">Leave Start Date</th>
+        <th  (click)="Sort('LeaveEndDate')" scope="col">Leave End Date</th>        
+      </tr>
+    </thead>    
+    <tbody>
+      <tr
+        *ngFor="let leave of Leaves | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">{{leave.LeaveId}}</td>
+        <td  scope="col">{{ leave.Vendor.VendorName }}</td>
+        <td  scope="col">{{ leave.LeaveStartDate | date }}</td>
+        <td  scope="col">{{ leave.LeaveEndDate | date}}</td>             
+      </tr>
+    </tbody>
+  </table>
+  <hr/>  
+</div>

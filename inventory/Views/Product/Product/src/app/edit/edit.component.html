@@ -1,0 +1,82 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../index']">
+      back
+    </button>
+  </div>
+
+  <div class="mb-3">
+    <label for="Product.Name">Name:</label>
+    <input class="form-control" id="Product.Name" name="Product.Name" type="text" [(ngModel)]="Product.Name" />
+  </div>
+  <div class="mb-3">
+    <label for="Product.Title">Title:</label>
+    <input class="form-control" id="Product.Title" name="Product.Title" type="text" [(ngModel)]="Product.Title" />
+  </div>
+  <div class="mb-3">
+    <label for="Product.Description">Description:</label>
+    <input class="form-control" id="Product.Description" name="Product.Description" type="text" [(ngModel)]="Product.Description" />
+  </div>
+  <p>Thumbnail:</p>
+  <form [formGroup]="form" (ngSubmit)="OnUploadFile('thumbnail')">
+    <div class="form-group">
+      <label for="image">Thumbnail Image</label>
+      <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
+    </div>
+    <button type="submit" class="btn btn-success">Upload <span class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true" *ngIf="uploading"></span></button>
+  </form>
+  <p>Image:</p>
+  <form [formGroup]="form" (ngSubmit)="OnUploadFile('image')">
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
+    </div>
+    <button type="submit" class="btn btn-success">Upload <span class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true" *ngIf="uploading"></span></button>
+  </form>
+  <img src="/api/AwsStorage/DownloadFile/{{Product.Image}}" alt ="Products image"/>
+  <img src="/api/AwsStorage/DownloadFile/{{Product.ThumbnailImage}}" alt ="Products image"/>
+
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="ConfirmDelete()">
+        Delete
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(Product)">
+        Save
+      </button>
+    </div>
+  </div>
+
+</div>
+<!-- Modal -->
+<div *ngIf="deletemodal"  class="modal-backdrop fade show"></div>
+<div *ngIf="deletemodal" id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog"
+  style="display: block; padding-right: 12px;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" (click)="CloseModal()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="CloseModal()">No</button>
+        <button type="button" class="btn btn-danger" (click)="Delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

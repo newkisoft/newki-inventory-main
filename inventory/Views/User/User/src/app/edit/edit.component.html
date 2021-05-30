@@ -1,0 +1,91 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="first-name">First name</label>
+    <input id="first-name" name="first-name" class="input-group-text form-control" [(ngModel)]="userProfile.FirstName"
+      placeholder="First name" />
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="last-name">Last name</label>
+    <input id="last-name" name="last-name" class="input-group-text form-control" [(ngModel)]="userProfile.LastName"
+      placeholder="Last name" />
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="last-name">Last name</label>
+    <input id="last-name" name="last-name" class="input-group-text form-control" [(ngModel)]="userProfile.LastName"
+      placeholder="Last name" />
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="email">Email</label>
+    <input id="email" name="email" class="input-group-text form-control" [(ngModel)]="userProfile.Email"
+      placeholder="Email" />
+  </div>
+  <table class="table">
+    <thead>
+      <th>Counter Id</th>
+      <th>Application User Id</th>
+      <th>Role Name</th>
+      <th>Have Access</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of userRoles">
+        <td>{{role.CounterId}} </td>
+        <td>{{role.ApplicationUserId}}</td>
+        <td>{{role.RoleName}} </td>
+        <td><input class="form-control" type="checkbox" [(ngModel)]="role.IsHaveAccess" /> </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-2 mb-3">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="ConfirmDelete()">
+        Delete
+      </button>
+    </div>
+
+
+
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(userProfile)">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div *ngIf="deletemodal" class="modal-backdrop fade show"></div>
+<div *ngIf="deletemodal" id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog"
+  style="display: block; padding-right: 12px;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" (click)="CloseModal()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="CloseModal()">No</button>
+        <button type="button" class="btn btn-danger" (click)="Delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

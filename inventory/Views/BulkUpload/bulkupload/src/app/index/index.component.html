@@ -1,0 +1,51 @@
+
+<a class="btn btn-primary" href="/bulk-pallet-sample.csv">Download pallet bulk upload sample file</a>
+<table class="table table-striped able-sm mt-2">
+  <thead>
+  <tr>
+    <th>Pallet Number</th>
+    <th>Barcode</th>
+    <th>YarnType</th>
+    <th>Denier</th>
+    <th>Filament</th>
+    <th>BobbinSize</th>
+    <th>Lustre</th>
+    <th>Lot</th>
+    <th>Color</th>
+    <th>ColorCode</th>
+    <th>Intermingle</th>
+    <th>Weight</th>
+    <th>Price</th>    
+  </tr>
+</thead>
+</table>
+<div class=" box-header with-border">
+  <form [formGroup]="palletform" (ngSubmit)="OnUploadPalletFile()">
+    <p>Pallets</p>
+    <div class="form-group">
+      <label for="bulkpalletlist">Pallet list</label>
+      <input type="file" id="bulkpalletlist" (change)="onPalletFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="palletuploading"></span></button>
+  </form>  
+</div>
+<a class="btn btn-primary" href="/bulk-box-sample.csv">Download box bulk upload sample file</a>
+<table class="table table-striped able-sm mt-2">
+  <thead>
+  <tr>
+    <th>Pallet Id</th>
+    <th>Barcode</th>
+    <th>Weight</th>
+  </tr>
+  </thead>
+</table>
+<div class=" box-header with-border">
+  <form [formGroup]="boxform" (ngSubmit)="OnUploadBoxFile()">
+    <p>Box</p>
+    <div class="form-group">
+      <label for="bulkboxlist">Box list</label>
+      <input type="file" id="bulkboxlist" (change)="onBoxFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="boxuploading"></span></button>
+  </form>  
+</div>

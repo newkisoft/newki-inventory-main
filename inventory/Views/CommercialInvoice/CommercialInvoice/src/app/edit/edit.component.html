@@ -1,0 +1,295 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">
+      <label class="col-2">Invoice Id:</label>
+      <input class="col form-control mr-2" type="number" [(ngModel)]="CommercialInvoice.InvoiceId" />
+      <input class="col btn btn-primary" type="button" (click)="FindInvoice()" value="Find" />
+    </div>
+    <div class="row">       
+      <p *ngIf="errorCustomer" class="alert alert-danger" role="alert">*</p>     
+        <div class="col">
+            <label>CommercialInvoice Date:</label><input type="date" class="form-control" [ngModel]="CommercialInvoice.CommercialInvoiceDate | date:'yyyy-MM-dd'" (ngModelChange)="CommercialInvoice.CommercialInvoiceDate = $event"/>
+        </div>
+        <div class="col">
+            <label>Valid Until:</label><input type="date" class="form-control" [ngModel]="CommercialInvoice.LoadingDate | date:'yyyy-MM-dd'" (ngModelChange)="CommercialInvoice.LoadingDate = $event"/>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <label>Buyer:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.Buyer"/>
+        </div>
+
+        <div class="col">
+            <label>Seller:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.Seller"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Consignee:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.Consignee"/>
+        </div>
+
+        <div class="col">
+            <label>Country Of Beneficiary:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.CountryOfBeneficiary"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Country Of Destination:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.CountryOfDestination"/>
+        </div>
+
+        <div class="col">
+            <label>Country Of Origin:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.CountryOfOrigin"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>HsCode:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.HsCode"/>
+        </div>
+
+        <div class="col">
+            <label>Package Description:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.PackageDescription"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Freight Forwarder:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.FreightForwarder"/>
+        </div>
+
+        <div class="col">
+            <label>Partial Shipment:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.PartialShipment"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Relevant Location:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.RelevantLocation"/>
+        </div>
+
+        <div class="col">
+            <label>Size:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.Size"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Port:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.Port"/>
+        </div>
+
+        <div class="col">
+            <label>Terms Of Delivery:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.TermsOfDelivery"/>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col">
+            <label>Terms Of Payment:</label><input type="text" class="form-control" [(ngModel)]="CommercialInvoice.TermsOfPayment"/>
+        </div>     
+   
+       
+    </div>
+  
+
+  </div>
+   <table class="table table-striped able-sm mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th class="d-none d-sm-block" scope="col">#</th>
+          <th scope="col">Pallet Number</th>
+          <th class="d-none d-sm-block" scope="col">Barcode</th>
+          <th scope="col">Pallet Name</th>
+          <th scope="col">Weight</th>
+          <th class="d-none d-sm-block" scope="col">Remaining Weight</th>
+          <th scope="col">Sold weight</th>
+          <th scope="col">Price</th>
+          <th scope="col">Delivered</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoicePallet of invoicePallets ">
+          <td class="d-none d-sm-block"><a href="/Pallet/Index/#/edit?id={{ invoicePallet.Pallet.PalletId }}">{{
+              invoicePallet.Pallet.PalletId }}</a></td>
+          <td>{{ invoicePallet.Pallet.PalletNumber }}</td>
+          <td class="d-none d-sm-block">{{ invoicePallet.Pallet.Barcode }}</td>
+          <td><span name="details">{{ invoicePallet.Pallet.YarnType }} {{invoicePallet.Pallet.Denier}}
+              {{invoicePallet.Pallet.Filament}}
+              {{invoicePallet.Pallet.Intermingle}} {{invoicePallet.Pallet.ColorCode}}
+              {{invoicePallet.Pallet.BobbinSize}}
+            </span>
+          </td>
+          <td>{{ invoicePallet.Pallet.Weight }}</td>
+          <td class="d-none d-sm-block">{{ invoicePallet.Pallet.RemainWeight }}</td>
+          <td><input class="form-control" name="weight" type="number" step="0.0001"
+              [(ngModel)]="invoicePallet.Weight" /></td>
+          <td><input class="form-control" name="price" type="number" step="0.0001"
+              [(ngModel)]="invoicePallet.Pallet.Price" /></td>
+          <td><input class="form-control" type="checkbox" [(ngModel)]="invoicePallet.Pallet.IsDelivered"
+              ngDefaultControl /></td>
+          <td><input class="btn btn-danger float-xl-right" (click)="RemoveItem(invoicePallet)" type="button"
+              value="X" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  <form [formGroup]="form" (ngSubmit)="OnUploadFile()">
+    <div class="form-group">
+      <label for="fatura">Fatura</label>
+      <input type="file" id="fatura" (change)="onFileChange($event)" #fileInput>
+    </div>
+    <button type="submit" class="btn btn-success">Upload <span class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true" *ngIf="uploading"></span></button>
+  </form>
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th>File name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of files ">
+        <td><a href="/api/AwsStorage/DownloadFile/{{file.File.FileName}}" target="blank">{{file.File.FileName}}</a></td>
+        <td><input class="btn btn-danger float-xl-right" (click)="RemoveFileItem(file)" type="button" value="X" /></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <label>KDV %:</label>
+    <input type="number" class="ml-1 form-control" name="CommercialInvoice.KDV" placeholder="KDV" [(ngModel)]="CommercialInvoice.Kdv" />
+    <label>Discount:</label>
+    <input type="number" class="ml-1 form-control" name="CommercialInvoice.Discount" placeholder="Discount"
+      [(ngModel)]="CommercialInvoice.Discount" />
+    <label>Exchange Rate:</label>
+    <input type="number" class="ml-1 " class="ml-1 form-control" placeholder="Exchange Rate" [(ngModel)]="ExchangeRate" />
+    <hr />
+    <div class="table">
+      <div class="row">
+        <div class="col">
+          <label>KDV:</label><label class="ml-3">{{Tax | number:'1.2-3'}}</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Total:</label><label class="ml-3">{{TotalUsd | number:'1.2-3'}}</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label>Total Lira:</label><label class="ml-3">{{TotalLira | number:'1.2-3'}}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" name="CommercialInvoice.Comment" id="CommercialInvoice.Comment"
+          [(ngModel)]="CommercialInvoice.Comment"></textarea>
+      </div>
+      <div class="row">
+        <div class="form-check form-check-inline ml-4">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+            [(ngModel)]="CommercialInvoice.Currency" value="Usd">
+          <label class="form-check-label" for="inlineRadio1">Usd</label>
+        </div>
+        <div class="form-check form-check-inline ml-4">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+            [(ngModel)]="CommercialInvoice.Currency" value="Euro">
+          <label class="form-check-label" for="inlineRadio1">Euro</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+            [(ngModel)]="CommercialInvoice.Currency" value="Lira">
+          <label class="form-check-label" for="inlineRadio2">Lira</label>
+        </div>
+      </div>
+      <h3>Extras</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let extra of CommercialInvoice.Extras">
+              <td><input class="form-control" type="text" [(ngModel)]="extra.Description" /></td>
+              <td><input class="form-control" type="number" [(ngModel)]="extra.Value" /></td>
+              <td><input type="button" class="btn btn-danger" (click)="RemoveExtra(extra)" value="-" /></td>
+            </tr>
+            <tr>
+              <td><input class="form-control" type="text" [(ngModel)]="newExtra.Description"  /></td>
+              <td><input class="form-control" type="number" [(ngModel)]="newExtra.Value" /></td>              
+              <td><input type="button" class="btn btn-success" (click)="AddExtra()" value="+" /></td>
+            </tr>
+          </tbody>
+        </table>
+      <div class="row">
+        <div class="col">
+          <label>Total payment:</label>
+          <input type="number" class="ml-1 form-control" name="CommercialInvoice.Paid" placeholder="Total payment"
+            [(ngModel)]="CommercialInvoice.Paid" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-2 mb-3">
+      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="ConfirmDelete()">
+        Delete
+      </button>
+    </div>
+
+
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(CommercialInvoice)">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-md-3 mb-3">
+      <a href="{{PackingListUrl}}" class="btn btn-primary btn-lg btn-block" download>
+        Download Packing List
+      </a>
+    </div>
+    <div class="col-md-3 mb-3">
+      <a href="{{CommercialInvoiceReportUrl}}" class="btn btn-primary btn-lg btn-block" download>
+        Download PDF
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div *ngIf="deletemodal"  class="modal-backdrop fade show"></div>
+<div *ngIf="deletemodal" id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog"
+  style="display: block; padding-right: 12px;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" (click)="CloseModal()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="CloseModal()">No</button>
+        <button type="button" class="btn btn-danger" (click)="Delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

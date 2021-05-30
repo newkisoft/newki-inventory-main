@@ -1,0 +1,96 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button
+      class="btn bg-secondary  btn-block col-md-3"
+      [routerLink]="['../index']"
+    >
+      back
+    </button>
+  </div>
+  <form>
+    <div class="mb-3">
+      <label for="catalogueColor.catalogueColorName">Catalogue Color Code:</label>
+      <input
+        class="form-control"
+        id="catalogueColor.ColorCode"
+        name="catalogueColor.ColorCode"
+        type="text"
+        [(ngModel)]="catalogueColor.ColorCode"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="catalogueColor.Catalogue">Catalogue:</label>
+      <input
+        class="form-control"
+        id="catalogueColor.Catalogue"
+        name="catalogueColor.Catalogue"
+        type="text"
+        [(ngModel)]="catalogueColor.Catalogue"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="catalogueColor.PageNumber">Page Number:</label>
+      <input
+        class="form-control"
+        id="catalogueColor.PageNumber"
+        name="catalogueColor.PageNumber"
+        type="text"
+        [(ngModel)]="catalogueColor.PageNumber"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="catalogueColor.Color">Color:</label>
+      <input
+        class="form-control"
+        id="catalogueColor.Color"
+        name="catalogueColor.Color"
+        type="text"
+        [(ngModel)]="catalogueColor.Color"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="catalogueColor.Catalogue">Comment:</label>
+      <input
+        class="form-control"
+        id="catalogueColor.Comment"
+        name="catalogueColor.Comment"
+        type="text"
+        [(ngModel)]="catalogueColor.Comment"
+      />
+    </div>
+    <div class="mb-3 p-4" [style.background-color]="catalogueColor.Color">         
+    </div>
+    
+    <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-secondary btn-lg btn-block"
+          type="button"
+          (click)="Cancel()"
+        >
+          Cancel
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-danger btn-lg btn-block"
+          type="button"
+          (click)="Delete(catalogueColor)"
+        >
+          Delete
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-success btn-lg btn-block"
+          type="button"
+          value="Save"
+          (click)="Save(catalogueColor)"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

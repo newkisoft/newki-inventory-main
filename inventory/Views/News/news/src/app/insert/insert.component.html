@@ -1,0 +1,167 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button
+      class="btn bg-secondary  btn-block col-md-3"
+      [routerLink]="['../index']"
+    >
+      back
+    </button>
+  </div>
+  <form>
+    <div class="mb-3">
+      <label for="pallet.PalletNumber">Pallet Number:</label>
+      <input
+        class="form-control"
+        id="pallet.PalletNumber"
+        name="pallet.PalletNumber"
+        type="text"
+        [(ngModel)]="pallet.PalletNumber"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="pallet.Barcode">Barcode:</label>
+      <input
+        class="form-control"
+        id="pallet.Barcode"
+        name="pallet.Barcode"
+        type="text"
+        [(ngModel)]="pallet.Barcode"
+      />
+    </div>   
+    <div class="mb-3">
+        <label for="pallet.YarnType">Yarn Type:</label>
+        <input
+          class="form-control"
+          id="pallet.YarnType"
+          name="pallet.YarnType"
+          type="text"
+          [(ngModel)]="pallet.YarnType"
+        />
+      </div>
+    <div class="mb-3">
+        <label for="pallet.Denier">Denier:</label>
+        <input
+          class="form-control"
+          id="pallet.Denier"
+          name="pallet.Denier"
+          type="text"
+          [(ngModel)]="pallet.Denier"
+        />
+      </div>
+      <div class="mb-3">
+          <label for="pallet.Filament">Filament:</label>
+          <input
+            class="form-control"
+            id="pallet.Filament"
+            name="pallet.Filament"
+            type="text"
+            [(ngModel)]="pallet.Filament"
+          />
+        </div>
+        <div class="mb-3">
+            <label for="pallet.Intermingle">Intermingle:</label>
+            <input
+              class="form-control"
+              id="pallet.Intermingle"
+              name="pallet.Intermingle"
+              type="text"
+              [(ngModel)]="pallet.Intermingle"
+            />
+          </div>
+          <div class="mb-3">
+              <label for="pallet.Color">Color:</label>
+              <input
+                class="form-control"
+                id="pallet.Color"
+                name="pallet.Color"
+                type="text"
+                [(ngModel)]="pallet.Color"
+              />
+            </div>
+            <div class="mb-3">
+                <label for="pallet.PalletName">Color Code:</label>
+                <input
+                  class="form-control"
+                  id="pallet.ColorCode"
+                  name="pallet.ColorCode"
+                  type="text"
+                  [(ngModel)]="pallet.ColorCode"
+                />
+              </div>
+              <div class="mb-3">
+                  <label for="pallet.PalletName">Bobbin Size:</label>
+                  <input
+                    class="form-control"
+                    id="pallet.BobbinSize"
+                    name="pallet.BobbinSize"
+                    type="text"
+                    [(ngModel)]="pallet.BobbinSize"
+                  />
+                </div>
+              
+    <div class="mb-3">
+      <label for="pallet.Weight">Weight:</label>
+      <input
+        class="form-control"
+        id="pallet.Weight"
+        name="pallet.Weight"
+        type="text"
+        [(ngModel)]="pallet.Weight"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="pallet.Price">Price:</label>
+      <input
+        class="form-control"
+        id="pallet.Price"
+        name="pallet.Price"
+        type="text"
+        [(ngModel)]="pallet.Price"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="pallet.RemainWeight">Remain Weight:</label>
+      <input
+        class="form-control"
+        id="pallet.RemainWeight"
+        name="pallet.RemainWeight"
+        type="text"
+        [(ngModel)]="pallet.RemainWeight"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="pallet.Sold">Sold:</label>
+      <input
+        id="pallet.Sold"
+        class="ml-3"
+        name="pallet.Sold"
+        type="checkbox"
+        [(ngModel)]="pallet.Sold"
+        ng-checked="pallet.Sold"
+      />
+    </div>
+    <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-secondary btn-lg btn-block"
+          type="button"
+          (click)="Cancel()"
+        >
+          Cancel
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-success btn-lg btn-block"
+          type="button"
+          value="Save"
+          (click)="Save(pallet)"
+        >
+          Save
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

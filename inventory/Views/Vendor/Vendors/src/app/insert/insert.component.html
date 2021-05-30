@@ -1,0 +1,125 @@
+<div class="container mb-3">
+    <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+      <button
+        class="btn bg-secondary  btn-block col-md-3"
+        [routerLink]="['../home']"
+      >
+        back
+      </button>
+    </div>
+    <form>
+      <div class="mb-3">
+        <label for="vendor.VendorName">Vendor name:</label>
+        <input
+          class="form-control"
+          id="vendor.VendorName"
+          name="vendor.VendorNamer"
+          type="text"
+          [(ngModel)]="vendor.VendorName"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Address">Address:</label>
+        <input
+          class="form-control"
+          id="vendor.Address"
+          name="vendor.Address"
+          type="text"
+          [(ngModel)]="vendor.Address"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Address">City:</label>
+        <input
+          class="form-control"
+          id="vendor.City"
+          name="vendor.City"
+          type="text"
+          [(ngModel)]="vendor.City"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.ZipCode">ZipCode:</label>
+        <input
+          class="form-control"
+          id="vendor.ZipCode"
+          name="vendor.ZipCode"
+          type="text"
+          [(ngModel)]="vendor.ZipCode"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Phone">Phone:</label>
+        <input
+          class="form-control"
+          id="vendor.Phone"
+          name="vendor.Phone"
+          type="text"
+          [(ngModel)]="vendor.Phone"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.MobilePhone">Mobile Phone:</label>
+        <input
+          class="form-control"
+          id="vendor.MobilePhone"
+          name="vendor.MobilePhone"
+          type="text"
+          [(ngModel)]="vendor.MobilePhone"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Email">Email:</label>
+        <input
+          class="form-control"
+          id="vendor.Email"
+          name="vendor.Email"
+          type="text"
+          [(ngModel)]="vendor.Email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Website">Website:</label>
+        <input
+          class="form-control"
+          id="vendor.Website"
+          name="vendor.Website"
+          type="text"
+          [(ngModel)]="vendor.Website"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="vendor.Vergi">Vergi:</label>
+        <input
+          class="form-control"
+          id="vendor.Vergi"
+          name="vendor.Vergi"
+          type="text"
+          [(ngModel)]="vendor.Vergi"
+        />
+      </div>
+      <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+      <div class="row">
+        <div class="col-md-3 mb-3">
+          <button
+            class="btn btn-secondary btn-lg btn-block"
+            type="button"
+            (click)="Cancel()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="col-md-3 mb-3">
+          <button
+            class="btn btn-success btn-lg btn-block"
+            type="button"
+            value="Save"
+            (click)="Save(vendor)"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

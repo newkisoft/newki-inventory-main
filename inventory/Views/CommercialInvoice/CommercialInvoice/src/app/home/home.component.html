@@ -1,0 +1,39 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a
+  >  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th   (click)="Sort('InvoiceId')" scope="col">#</th>
+        <th class="hide-on-small" scope="col">Comment</th>
+        <th class="hide-on-small" (click)="Sort('CommercialInvoiceDate')" scope="col">CommercialInvoice Date</th>
+        <th class="hide-on-small"  (click)="Sort('TotalUsd')" scope="col">Total USD</th>
+        <th class="hide-on-small"  (click)="Sort('Paid')" scope="col">Total Payment</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let CommercialInvoice of CommercialInvoices | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">
+          <a routerLink="/edit" [queryParams]="{id: CommercialInvoice.CommercialInvoiceId}"  >
+          {{CommercialInvoice.CommercialInvoiceId}}</a></td>
+        <td class="hide-on-large" scope="col"><p>{{ CommercialInvoice.Comment | slice:0:20 }}, {{ CommercialInvoice.CommercialInvoiceDate | date }}, {{ CommercialInvoice.TotalUsd | number:'1.2-3'}}, {{ CommercialInvoice.Paid | number:'1.2-3'}}</p></td>
+        <td class="hide-on-small" scope="col">{{ CommercialInvoice.Comment | slice:0:20 }}</td>                
+        <td class="hide-on-small" scope="col">{{ CommercialInvoice.CommercialInvoiceDate | date }}</td>
+        <td class="hide-on-small" scope="col">{{ CommercialInvoice.TotalUsd | number:'1.2-3'}}</td>        
+        <td class="hide-on-small"  scope="col">{{ CommercialInvoice.Paid | number:'1.2-3'}}</td>         
+      </tr>
+    </tbody>
+  </table>
+  <hr/>  
+</div>

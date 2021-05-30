@@ -1,0 +1,87 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">           
+      <mat-form-field class="col">
+        <input class="col ml-1" matInput [matDatepicker]="picker" [(ngModel)]="goodsContainer.ImportDate" ngDefaultControl
+          placeholder="Import Date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col">
+        <input class="col ml-1" matInput [matDatepicker]="pickerRelease" [(ngModel)]="goodsContainer.ReleaseDate" ngDefaultControl
+          placeholder="Release Date" />
+        <mat-datepicker-toggle matSuffix [for]="pickerRelease"></mat-datepicker-toggle>
+        <mat-datepicker #pickerRelease></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+  </div>
+  <label  for="name">Name:</label>
+  <input name="name" class="form-control" [(ngModel)]="goodsContainer.Name"/>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="d-none d-sm-block" scope="col">#</th>
+        <th scope="col">Pallet Number</th>
+        <th class="d-none d-sm-block" scope="col">Barcode</th>
+        <th scope="col">Pallet Name</th>
+        <th scope="col">Weight</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let goodsContainerPallet of goodsContainerPallets ">
+        <td class="d-none d-sm-block">{{ goodsContainerPallet.Pallet.PalletId }}</td>
+        <td>{{ goodsContainerPallet.Pallet.PalletNumber }}</td>
+        <td class="d-none d-sm-block">{{ goodsContainerPallet.Pallet.Barcode }}</td>
+        <td>{{ goodsContainerPallet.Pallet.YarnType }} {{goodsContainerPallet.Pallet.Denier}} {{goodsContainerPallet.Pallet.Filament}}
+          {{goodsContainerPallet.Pallet.Intermingle}} {{goodsContainerPallet.Pallet.ColorCode}} {{goodsContainerPallet.Pallet.BobbinSize}}
+        </td>
+        <td>{{ goodsContainerPallet.Pallet.Weight }}</td>
+        <td><input class="btn btn-danger" (click)="RemoveItem(goodsContainerPallet)" type="button" value="X" /></td>
+      </tr>
+      <tr>
+        <td colspan="9">
+          <mat-form-field class="col">
+            <input type="text" class="ml-1 " name="newPalletId" placeholder="Add new Pallet" matInput
+              [formControl]="PalletsControl" [matAutocomplete]="autoPallet" />
+            <mat-autocomplete #autoPallet="matAutocomplete">
+              <mat-option *ngFor="let palletOption of filteredOptions | async" value=""
+                (click)="Add(palletOption.PalletId)">
+                {{ palletOption.PalletNumber }} {{ palletOption.Barcode }} {{ palletOption.YarnType }}
+                {{palletOption.Denier}} {{palletOption.Filament}} {{palletOption.Intermingle}}
+                {{palletOption.ColorCode}} {{palletOption.BobbinSize}} {{palletOption.Weight}} Kg
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+      <div class="mb-2 mt-2">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" name="goodsContainer.Note" id="goodsContainer.Note"
+          [(ngModel)]="goodsContainer.Note"></textarea>
+  </div>
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(goodsContainer)">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>
+  </div>
+</div>

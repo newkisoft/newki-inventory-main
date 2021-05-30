@@ -1,0 +1,23 @@
+<div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Old Password</label>
+    <input type="password" class="form-control" id="oldPassword" placeholder="Old Password"
+      [(ngModel)]="changePasswordViewModel.OldPassword">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">New Password</label>
+    <input type="password" class="form-control" id="newPassword" placeholder="New Password"
+      [(ngModel)]="changePasswordViewModel.NewPassword">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Confirm Password</label>
+    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
+      [(ngModel)]="changePasswordViewModel.ConfirmPassword">
+  </div>
+  <div class="mt-1 mb-1">
+    <p *ngFor="let error of errors" class="text-danger">{{error.Description}}</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+
+
+</div>

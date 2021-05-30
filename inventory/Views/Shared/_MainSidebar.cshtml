@@ -1,0 +1,56 @@
+﻿@{
+    var buttons = new Dictionary<string, string>();
+    buttons.Add("Dashboard", "/Dashboard/Index/");
+    buttons.Add("Customers", "/Customer/Index/");
+    buttons.Add("Agents", "/Agent/Index/");
+    buttons.Add("Vendors", "/Vendor/Index/");
+    buttons.Add("Leave", "/Leave/Index/");
+    buttons.Add("Invoice", "/Invoice/Index/");
+    buttons.Add("Proforma", "/Proforma/Index/");
+    buttons.Add("Samples", "/Samples/Index/");
+    buttons.Add("Bills", "/Bill/Index/");
+    buttons.Add("Box", "/Box/Index/");
+    buttons.Add("Products", "/Product/Index/");
+    buttons.Add("Pallets", "/Pallet/Index/");
+    buttons.Add("Proforma Items", "/ProformaItem/Index/");
+    buttons.Add("Prices", "/Price/Index/");
+    buttons.Add("Bulk Upload", "/BulkUpload/Index/");
+    buttons.Add("Goods Containers", "/GoodsContainer/Index/");
+    buttons.Add("Containers Loading Plan", "/ContainerLoadingPlan/Index/");
+    buttons.Add("Catalogue Colors", "/CatalogueColor/Index/");
+    buttons.Add("Users", "/User/Index/");
+    buttons.Add("Roles", "/Role/Index/");
+    buttons.Add("Change Password", "/ChangePassword/Index/");
+}
+
+<div id="menudiv" class="side-menu">
+    <nav id="sidebarMenu" style="" class="col-md-11 d-md-block bg-dark sidebar collapse text-light sticky-top h-100">
+        <div class="sidebar-sticky pt-3 sticky-top multi-collapse">
+            <ul class="nav flex-column">
+                @foreach (var button in buttons)
+                {
+                    <li class="nav-item">
+                        <a class="btn btn-dark w-100 text-left" href="@button.Value">
+                            @button.Key
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("menudiv");
+        x.hidden = !x.hidden;
+        var main = document.getElementById("main");
+        if (x.hidden) {
+            main.className = "col-md-12 ml-sm-auto col-lg-12 pt-4";
+        }
+        else {
+            main.className = "col-md-10 ml-sm-auto col-lg-10 pt-4";
+        }
+    }
+
+</script>

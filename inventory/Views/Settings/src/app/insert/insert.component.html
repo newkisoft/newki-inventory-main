@@ -1,0 +1,43 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">
+
+
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="setting.Key">Key:</label>
+        <input type="text" class="form-control" name="setting.Key" id="setting.Key"
+          [(ngModel)]="setting.Key"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="setting.Value">Value:</label>
+        <textarea class="form-control" rows="10" name="setting.Value" id="setting.Value"
+          [(ngModel)]="setting.Value"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save()">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>
+  </div>
+</div>

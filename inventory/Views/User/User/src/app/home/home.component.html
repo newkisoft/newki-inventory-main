@@ -1,0 +1,33 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a>  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="hidden-xs" (click)="Sort('LeaveId')" scope="col">#</th>
+        <th (click)="Sort('Firstname')" scope="col">Firstname</th>
+        <th (click)="Sort('Lastname')" scope="col">Lastname</th>
+        <th  (click)="Sort('Email')" scope="col">Email</th>        
+      </tr>
+    </thead>    
+    <tbody>
+      <tr
+        *ngFor="let user of users | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">{{user.ApplicationUserId}}</td>
+        <td  scope="col">{{ user.FirstName }}</td>
+        <td  scope="col">{{ user.LastName}}</td>
+        <td  scope="col">{{ user.Email}}</td>        
+      </tr>
+    </tbody>
+  </table>
+  <hr/>  
+</div>

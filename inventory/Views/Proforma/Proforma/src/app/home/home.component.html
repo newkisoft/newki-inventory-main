@@ -1,0 +1,42 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"    
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a
+  >  
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th   (click)="Sort('InvoiceId')" scope="col">#</th>
+        <th class="hide-on-large" (click)="Sort('CustomerName')" scope="col">Customer Name</th>
+        <th class="hide-on-small" (click)="Sort('CustomerName')" scope="col">Customer Name</th>
+        <th class="hide-on-small" scope="col">Comment</th>
+        <th class="hide-on-small" (click)="Sort('ProformaDate')" scope="col">Proforma Date</th>
+        <th class="hide-on-small"  (click)="Sort('TotalUsd')" scope="col">Total USD</th>
+        <th class="hide-on-small"  (click)="Sort('Paid')" scope="col">Total Payment</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let proforma of proformas | filter: searchText"
+        (dblclick)="doubleClick($event)"
+      >
+        <td  scope="col">
+          <a routerLink="/edit" [queryParams]="{id: proforma.ProformaId}"  >
+          {{proforma.ProformaId}}</a></td>
+        <td class="hide-on-large" scope="col"><p>{{ proforma.Customer.CustomerName }}, {{ proforma.Comment | slice:0:20 }}, {{ proforma.ProformaDate | date }}, {{ proforma.TotalUsd | number:'1.2-3'}}, {{ proforma.Paid | number:'1.2-3'}}</p></td>
+        <td class="hide-on-small" scope="col">{{ proforma.Customer.CustomerName }}</td>
+        <td class="hide-on-small" scope="col">{{ proforma.Comment | slice:0:20 }}</td>                
+        <td class="hide-on-small" scope="col">{{ proforma.ProformaDate | date }}</td>
+        <td class="hide-on-small" scope="col">{{ proforma.TotalUsd | number:'1.2-3'}}</td>        
+        <td class="hide-on-small"  scope="col">{{ proforma.Paid | number:'1.2-3'}}</td>         
+      </tr>
+    </tbody>
+  </table>
+  <hr/>  
+</div>

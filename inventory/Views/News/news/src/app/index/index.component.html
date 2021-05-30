@@ -1,0 +1,79 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"
+    (keydown)="calculateTotalWeight()"
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a
+  >  
+  <div class="col-md-3 mb-3">
+    <button
+      class="btn btn-success btn-md btn-block col-md-5 ml-2 mb-3"
+      type="button"
+      value="Export"
+      (click)="Export()"
+    >
+      Export To NewKi Website
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="exporting"></span>
+    </button>
+  </div>
+  <div class="table row">    
+    <b>Total weight:</b>{{ totlWeight | number:'1.2-3' }} kg = {{totlWeight/1000 | number:'1.2-3'}} tons
+  </div>
+  <table class="table table-striped able-sm mt-2" >
+    <thead class="thead-dark">
+      <tr>          
+        <th   class="hidden-xs" scope="col">#</th>        
+        <th scope="col" (click)="Sort('PalletNumber')">Pallet #</th>
+        <th class="hidden-xs" scope="col" (click)="Sort('Barcode')">Barcode</th>        
+        <th class="hidden-xs" scope="col" (click)="Sort('YarnType')">Yarn Type</th>
+        <th scope="col" (click)="Sort('Denier')">Denier</th>
+        <th scope="col" (click)="Sort('Filament')">Filament</th>
+        <th scope="col" (click)="Sort('Intermingle')">Intermingle</th>
+        <th class="hidden-xs"  scope="col" (click)="Sort('Color')">Color</th>
+        <th scope="col" (click)="Sort('ColorCode')">Color Code</th>
+        <th class="hidden-xs"  scope="col" (click)="Sort('BobbinSize')">Bobbin Size</th>
+        <th scope="col" (click)="Sort('Weight')">Weight</th>
+        <th class="hidden-xs" (click)="Sort('RemainWeight')" scope="col">RemainWeight</th>
+        <th scope="col" (click)="Sort('Sold')">Sold</th>
+        <th scope="col">Report</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let pallet of filteredPallets | filter: searchText  "
+        (keydown)="singleClick($event)"
+        (dblclick)="doubleClick($event)"
+      >
+        <td class="hidden-xs">
+          <a href="./edit?id={{pallet.PalletId}}">
+          {{ pallet.PalletId }}</a></td>
+        <td>{{ pallet.PalletNumber }}</td>  
+        <td class="hidden-xs">{{ pallet.Barcode }}</td>        
+        <td class="hidden-xs">{{ pallet.YarnType }}</td>
+        <td>{{ pallet.Denier }}</td>
+        <td>{{ pallet.Filament }}</td>
+        <td>{{ pallet.Intermingle }}</td>
+        <td class="hidden-xs" >{{ pallet.Color }}</td>
+        <td>{{ pallet.ColorCode }}</td>
+        <td class="hidden-xs" >{{ pallet.BobbinSize }}</td>
+        <td>{{ pallet.Weight }}</td>
+        <td class="hidden-xs">{{ pallet.RemainWeight }}</td>
+        <td>{{ pallet.Sold }}</td>
+        <td>
+          <a
+            target="_blank"
+            href="/report-{{pallet.PalletId }}.pdf"
+            >Report</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>  
+  <hr/>
+  <b>Total weight:</b>{{ totlWeight | number:'1.2-3' }} kg = {{totlWeight/1000 | number:'1.2-3'}} tons
+</div>

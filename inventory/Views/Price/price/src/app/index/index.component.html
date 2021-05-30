@@ -1,0 +1,68 @@
+
+<div class=" box-header with-border">
+  <form [formGroup]="form" (ngSubmit)="OnUploadFile()">
+    <p>DTY</p>
+    <div class="form-group">
+      <label for="pricelist">Price list</label>
+      <input type="file" id="pricelist" (change)="onFileChange($event)" #fileInput>            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="uploading"></span></button>
+  </form> 
+</div>
+<hr/>
+
+<div class=" box-header with-border">
+  <form [formGroup]="fdyform" (ngSubmit)="OnUploadFdyFile()">
+    <p>FDY</p>
+    <div class="form-group">
+      <label for="fdypricelist">Price list</label>
+      <input type="file" id="fdypricelist" (change)="onFdyFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="fdyuploading"></span></button>
+  </form>  
+</div>
+<hr/>
+<div class=" box-header with-border">
+  <form [formGroup]="lycraform" (ngSubmit)="OnUploadLycraFile()">
+    <p>LYCRA</p>
+    <div class="form-group">
+      <label for="lycrapricelist">Lycra Price list</label>
+      <input type="file" id="lycrapricelist" (change)="onLycraFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="lycrauploading"></span></button>
+  </form>  
+</div>
+<hr/>
+<div class=" box-header with-border">
+  <form [formGroup]="bcfform" (ngSubmit)="OnUploadBcfFile()">
+    <p>Bcf</p>
+    <div class="form-group">
+      <label for="bcfpricelist">Bcf Price list</label>
+      <input type="file" id="bcfpricelist" (change)="onBcfFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="bcfuploading"></span></button>
+  </form>
+</div>
+<hr/>
+
+<div class=" box-header with-border">
+  <form [formGroup]="tfoform" (ngSubmit)="OnUploadTfoFile()">
+    <p>TFO</p>
+    <div class="form-group">
+      <label for="tfopricelist">Tfo Price list</label>
+      <input type="file" id="tfopricelist" (change)="onTfoFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="tfouploading"></span></button>
+  </form>
+</div>
+<hr/>
+<div class=" box-header with-border">
+  <form [formGroup]="shwform" (ngSubmit)="OnUploadShwFile()">
+    <p>Shw</p>
+    <div class="form-group">
+      <label for="shwpricelist">Shw Price list</label>
+      <input type="file" id="shwpricelist" (change)="onShwFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="shwuploading"></span></button>
+  </form>
+</div>

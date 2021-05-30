@@ -1,0 +1,52 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">
+      <mat-form-field class="col">
+        <input type="text" class="col ml-1" name="Order.Customer.CustomerId" placeholder="Customer Id"
+          [formControl]="CustomerControl" matInput [matAutocomplete]="auto" />
+        <label>{{ Order.Customer.CustomerName }}</label>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of customerFilteredOptions | async" (click)="UpdateCustomer(option)"
+            [value]="option.CustomerId">
+            {{ option.CustomerName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <p *ngIf="errorCustomer" class="alert alert-danger" role="alert">*</p>
+      <mat-form-field class="col">
+        <input class="col ml-1" matInput [matDatepicker]="picker" [(ngModel)]="Order.OrderDate" ngDefaultControl
+          placeholder="Order Date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="comment">Comment:</label>
+    <textarea class="form-control" rows="5" name="Order.Comment" id="Order.Comment"
+      [(ngModel)]="Order.Comment"></textarea>
+  </div>
+
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(Order)">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>    
+  </div>
+  <p *ngIf="errorCustomer" class="alert alert-danger" role="alert">Fill up the customer field before saving</p>
+</div>

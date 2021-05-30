@@ -1,0 +1,36 @@
+<div class=" box-header with-border">
+  <div class=" box-header with-border">
+  <form [formGroup]="form" (ngSubmit)="OnUploadFile()">
+    <p>Bank export file</p>
+    <div class="form-group">
+      <label for="list">File</label>
+      <input type="file" id="list" (change)="onBillFileChange($event)" />            
+    </div>
+    <button type="submit"  class="btn btn-success">Upload  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="uploading"></span></button>
+  </form>  
+</div>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="">
+      <tr>
+        <th (click)="Sort('BillId')" >BillId</th>
+        <th (click)="Sort('BillDate')" >Date</th>
+        <th (click)="Sort('Description')" >Description</th>
+        <th (click)="Sort('Amount')" >Amount</th>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of filteredBills">
+        <td>{{bill.BillId}}</td>
+        <td>{{bill.BillDate}}</td>
+        <td>{{bill.Description}}</td>
+        <td>{{bill.Amount}}</td>
+        <td>
+          <a *ngIf="bill.BillId==0" href="/Bill/Index/#/insert?amount={{bill.Amount}}&description={{bill.Description}}&date={{bill.BillDate}}">Insert</a>
+          <a *ngIf="bill.BillId!=0" href="/Bill/Index/#/edit?id={{bill.BillId}}">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  

@@ -1,0 +1,205 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../home']">
+      back
+    </button>
+  </div>
+  <div class="table ml-3">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control ml-1 " name="StateInvoiceNumber" placeholder="State Invoice Number"
+          matInput [(ngModel)]="invoice.StateInvoiceNumber" ngDefaultControl />
+      </div>
+      <div class="col">
+        <input type="text" class="form-control ml-1 " name="invoice.ProformaId" placeholder="Proforma Id"
+          matInput [(ngModel)]="invoice.ProformaId" ngDefaultControl />
+      </div>
+
+      <div class="col">
+        <div class="d-group mb-3">
+          <input type="text" class="form-control col-lg" aria-label="Sizing example input"
+            [(ngModel)]="customerSearchText" (keyup)="customerSearchChange()" (click)="customerSearchChange()"
+            aria-describedby="inputGroup-sizing-default" placeholder="Select a customer">
+        </div>
+        <ul [ngClass]="customerAutocomplete">
+          <li *ngFor="let customer of customers  | filter: customerSearchText" class="list-group-item"
+            (click)="AddCustomer(customer.CustomerId)" href="#">{{ customer.CustomerName }} </li>
+        </ul>
+      </div>
+      <p *ngIf="errorCustomer" class="alert alert-danger" role="alert">*</p>
+      <input class="col form-control" type="date" [ngModel]="invoice.InvoiceDate| date:'yyyy-MM-dd'"
+        (ngModelChange)="invoice.InvoiceDate = $event" />
+    </div>
+  </div>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="d-none d-sm-block" scope="col">#</th>
+        <th scope="col">Pallet Number</th>
+        <th class="d-none d-sm-block" scope="col">Barcode</th>
+        <th scope="col">Pallet Name</th>
+        <th scope="col">Weight</th>
+        <th class="d-none d-sm-block" scope="col">Remaining Weight</th>
+        <th scope="col">Sold weight</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoicePallet of invoicePallets ">
+        <td class="d-none d-sm-block"><a href="/Pallet/Index/#/edit?id={{ invoicePallet.Pallet.PalletId }}">{{ invoicePallet.Pallet.PalletId }}</a></td>
+        <td>{{ invoicePallet.Pallet.PalletNumber }}</td>
+        <td class="d-none d-sm-block">{{ invoicePallet.Pallet.Barcode }}</td>
+        <td>{{ invoicePallet.Pallet.YarnType }} {{invoicePallet.Pallet.Denier}} {{invoicePallet.Pallet.Filament}}
+          {{invoicePallet.Pallet.Intermingle}} {{invoicePallet.Pallet.ColorCode}} {{invoicePallet.Pallet.BobbinSize}}
+        </td>
+        <td>{{ invoicePallet.Pallet.Weight }}</td>
+        <td class="d-none d-sm-block">{{ invoicePallet.Pallet.RemainWeight }}</td>
+        <td><input class="form-control" type="text" [(ngModel)]="invoicePallet.Weight" ngDefaultControl /></td>
+        <td><input class="form-control" type="number" step="0.0001" [(ngModel)]="invoicePallet.Pallet.Price"
+            ngDefaultControl /></td>
+        <td><input class="btn btn-danger" (click)="RemoveItem(invoicePallet)" type="button" value="X" /></td>
+      </tr>   
+      <tr>
+        <td colspan="9">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control col-lg" aria-label="Sizing example input" [(ngModel)]="palletSearchText"
+              (keyup)="palletSearchChange()" (click)="palletSearchChange()" aria-describedby="inputGroup-sizing-default"
+              placeholder="Add new pallet">
+          </div>
+          <ul [ngClass]="palletAutocomplete">
+            <li *ngFor="let palletOption of pallets  | filter: palletSearchText" class="list-group-item"
+              (click)="AddPallet(palletOption.PalletId)" href="#">{{ palletOption.PalletNumber }}  {{ palletOption.Barcode }} {{ palletOption.YarnType }}
+              {{palletOption.Denier}} {{palletOption.Filament}}
+              {{palletOption.Intermingle}} {{palletOption.ColorCode}} {{palletOption.BobbinSize}}</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="d-none d-sm-block" scope="col">#</th>
+        <th scope="col">Barcode</th>
+        <th scope="col">Box Name</th>
+        <th scope="col">Weight</th>
+        <th class="d-none d-sm-block" scope="col">Remaining Weight</th>
+        <th scope="col">Sold weight</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoiceBox of invoiceBoxes ">
+        <td class="d-none d-sm-block">{{ invoiceBox.Box.BoxId }}</td>
+        <td>{{ invoiceBox.Box.Barcode }}</td>
+        <td>{{ invoiceBox.Box.YarnType }} {{invoiceBox.Box.Denier}} {{invoiceBox.Box.Filament}}
+          {{invoiceBox.Box.Intermingle}} {{invoiceBox.Box.ColorCode}} {{invoiceBox.Box.BobbinSize}} </td>
+        <td>{{ invoiceBox.Box.Weight }}</td>
+        <td class="d-none d-sm-block">{{ invoiceBox.Box.RemainWeight }}</td>
+        <td><input class="form-control" type="text" [(ngModel)]="invoiceBox.Weight" ngDefaultControl /></td>
+        <td><input class="form-control" type="text" [(ngModel)]="invoiceBox.Box.Price" ngDefaultControl /></td>
+        <td><input class="btn btn-danger" (click)="RemoveBoxItem(invoiceBox)" type="button" value="X" /></td>
+      </tr>
+      <tr>
+        <td colspan="9">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control col-lg" aria-label="Sizing example input" [(ngModel)]="boxSearchText"
+              (keyup)="searchChange()" (click)="searchChange()" aria-describedby="inputGroup-sizing-default"
+              placeholder="Add new box">
+          </div>
+          <ul [ngClass]="boxautocomplete">
+            <li *ngFor="let boxOption of boxes  | filter: boxSearchText" class="list-group-item"
+              (click)="AddBox(boxOption.BoxId)" href="#">{{ boxOption.Barcode }} {{ boxOption.YarnType }}
+              {{boxOption.Denier}} {{boxOption.Filament}}
+              {{boxOption.Intermingle}} {{boxOption.ColorCode}} {{boxOption.BobbinSize}}</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="container mt-2 mb-2">
+    <label>KDV %:</label>
+    <input id="tax-rate" type="number" class="ml-1 form-control" name="invoice.KDV" placeholder="KDV"
+      [(ngModel)]="invoice.Kdv" />
+    <label>Discount:</label>
+    <input type="number" class="ml-1 form-control" name="invoice.Discount" placeholder="Discount"
+      [(ngModel)]="invoice.Discount" />
+    <label class="mt-2"> European Central Bank Rate:</label>
+    <p>{{ExternalExchangeRate}}</p>
+    <label>Exchange Rate:</label>
+    <input id="exchange-rate" type="number" class="ml-1 " class="ml-1 form-control" placeholder="Exchange Rate"
+      [(ngModel)]="ExchangeRate" />
+    <div *ngIf="ExternalExchangeRate - ExchangeRate > 0.1" class="alert alert-danger mt-2" role="alert">
+          Rate is very different from the european centeral bank
+    </div>
+    <div class="table">
+      <div class="container mt-2 mb-2">
+        <div class="row">
+          <div class="col">
+            <label>KDV:</label><label class="ml-3">{{Tax | number:'1.2-3'}}</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Total USD:</label><label class="ml-3">{{TotalUsd | number:'1.2-3'}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Total Lira:</label><label class="ml-3">{{TotalLira | number:'1.2-3'}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Total Sold Weight:</label><label class="ml-3">{{TotalSoldWeight | number:'1.2-3'}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Number of boxes:</label><label class="ml-3">{{NumberOfBoxes | number:'1.2-3'}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Number of pallets:</label><label class="ml-3">{{NumberOfPallets | number:'1.2-3'}}</label>
+          </div>
+        </div>
+      </div>
+    <div class="container bg-light">
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea class="form-control" rows="5" name="invoice.Comment" id="invoice.Comment"
+        [(ngModel)]="invoice.Comment"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Driver name:</label>
+      <input type="text" class="ml-1 form-control" name="invoice.DriverName" placeholder="Driver name"
+        [(ngModel)]="invoice.DriverName" />
+    </div>
+    <div class="form-group">
+      <label>Truck registration number:</label>
+      <input type="text" class="ml-1 form-control" name="invoice.DriverRegistrationNumber"
+        placeholder="Truck registration number" [(ngModel)]="invoice.DriverRegistrationNumber" />
+    </div>
+  </div>
+  <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(invoice)"
+        [attr.disabled]="saving ? '' : null">
+        Save
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+      </button>
+    </div>
+  </div>
+  <p *ngIf="errorCustomer" class="alert alert-danger" role="alert">Fill up the customer field before saving</p>
+</div>

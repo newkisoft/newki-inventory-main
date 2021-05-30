@@ -1,0 +1,33 @@
+<div class=" box-header with-border">
+  <input [(ngModel)]="searchText" placeholder="search text goes here" class="form-control col-md-3 ml-2 mb-3" />
+  <a class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3" [routerLink]="['../insert']">Add</a>
+  <button class="btn btn-success btn-md col-md-1 ml-2 mb-3" (click)="publish()">Publish
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="uploading"></span>
+  </button>
+
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" (click)="Sort('ProductId')">Product Id</th>
+        <th scope="col" (click)="Sort('Name')">Name</th>
+        <th scope="col" (click)="Sort('Description')">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products | filter: searchText " (click)="singleClick($event)"
+        (dblclick)="doubleClick($event)">
+        <td>
+          <a routerLink="/edit" [queryParams]="{id: product.ProductId}"  >
+            {{ product.ProductId }}</a></td>
+        <td>{{ product.ProductId }}</td>
+        <td>{{ product.Name }}</td>
+        <td>{{ product.Description }}</td>
+        <td>
+          <img class="img-thumbnail" src="/api/AwsStorage/DownloadFile/{{product.ThumbnailImage}}" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,47 @@
+<div class=" box-header with-border">
+  <div class="row">
+    <input [(ngModel)]="searchText" placeholder="search text goes here" class="form-control col-md-3 ml-2 mb-3" />
+    <input [(ngModel)]="safe" placeholder="0" type="number" class="form-control col-md-3 ml-2 mb-3" />
+    <button class="btn btn-success ml-2 mb-3" (click)="SaveSafe()">
+      Save
+      <div *ngIf="savingSafe" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+  </div>
+  <div class="row">
+    <a class="btn btn-success btn-md btn-block ml-2 col-md-1 mb-3" [routerLink]="['../insert']">Add</a>
+    <button class="btn btn-success col-md-1 ml-2 mb-3" *ngIf="showLoadMore" (click)="LoadAll()">Load all</button>
+  </div>
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th (click)="Sort('BillId')" scope="col">#</th>
+        <th class="hide-on-large" scope="col">Details</th>
+        <th class="hide-on-small" (click)="Sort('VendorName')" scope="col">Vendor Name</th>
+        <th class="hide-on-small" (click)="Sort('BillDate')" scope="col">Invoice Date</th>
+        <th class="hide-on-small" (click)="Sort('Amount')" scope="col">Total Lira</th>
+        <th class="hide-on-small" (click)="Sort('UsdAmount')" scope="col">Total Usd</th>
+        <th class="hide-on-small" (click)="Sort('Paid')" scope="col">Total Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of filteredBills | filter: searchText" (dblclick)="doubleClick($event)">
+        <td scope="col">
+          <a routerLink="/edit" [queryParams]="{id: bill.BillId}">
+            {{bill.BillId}}</a>
+        </td>
+        <td class="hide-on-large" scope="col">
+          <p>{{ bill.Vendor.VendorName }}, {{ bill.BillDate | date }}, {{ bill.Amount }}, {{ bill.UsdAmount }}, {{
+            bill.Paid }}</p>
+        </td>
+        <td class="hide-on-small" scope="col">{{ bill.Vendor.VendorName }}</td>
+        <td class="hide-on-small" scope="col">{{ bill.BillDate | date }}</td>
+        <td class="hide-on-small" scope="col">{{ bill.Amount }}</td>
+        <td class="hide-on-small" scope="col">{{ bill.UsdAmount }}</td>
+        <td class="hide-on-small" scope="col">{{ bill.Paid }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success" *ngIf="showLoadMore" (click)="LoadMore()">Load more {{start}}-{{totalRows}}</button>
+</div>

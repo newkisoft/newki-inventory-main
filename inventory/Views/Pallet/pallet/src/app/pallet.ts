@@ -1,0 +1,30 @@
+export class Pallet {
+  public PalletId: number;
+  public PalletNumber: number;
+  public Barcode: string;  
+  public Lot: string;  
+  public Weight: number;
+  public RemainWeight: number;
+  public Sold: boolean;
+  public Price:number;
+  public Note:string;
+  public YarnType:string;
+  public Denier:number;
+  public Filament:number;
+  public Lustre:string;
+  public Intermingle:string;
+  public Color:string;
+  public ColorCode:string;
+  public BobbinSize:string;
+  public Warehouse:string;
+  public Title:string;
+  public Details:string;
+  public Image:string;
+  public ThumbnailImage:string;
+  public NumberOfItems:number;
+  public RemainingItems:number;
+  public Selected:boolean;
+  public IsOnlineProduct:boolean;
+  public IsDelivered:boolean;
+  public DeliveryDate:Date;
+}

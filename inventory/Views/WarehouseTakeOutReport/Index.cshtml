@@ -1,0 +1,62 @@
+
+@{
+    ViewData["Title"] = "Warehouse Take Out Report";
+    Layout = null;    
+}
+
+@model inventory.Models.WarehouseViewModels.ExitReport
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="background-image: url(/images/report2-page.jpg);background-repeat: no-repeat;width: 100%;height: 100%;">
+
+<p style="font-size:36px;font-weight:bold; padding-top: 185px;padding-left: 909px;"> @Html.DisplayFor( model => model.ExitDate )</p>
+<p style="font-size: 36px;font-weight: bold;padding-top: 91px;padding-left: 310px;">@Html.DisplayFor(model => model.Name)</p>
+<div style="width: 1200px;font-size: 36px;font-weight: bold;padding-top: 9px;">
+  <p style="float:left;padding-left: 90px;">@Html.DisplayFor(model => model.YarnType)</p>
+  <p style="float:left;padding-left: 200px;">@Html.DisplayFor(model => model.Denier)</p>
+  <p style="float:left;padding-left: 130px;">@Html.DisplayFor(model => model.ColorCode)</p>
+  <p style="float:left;padding-left: 140px;">@Html.DisplayFor(model => model.Color)</p>
+</div>
+<div style="clear:both"></div>
+ <svg width="31" height="31" style="margin-left: 850px;margin-top: 29px;">
+  <rect width="30" height="30" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+</svg>
+
+    <p style="font-size: 36px;font-weight: bold;padding-top: 91px;padding-left: 727px;">@Html.DisplayFor(model => model.PalletBarcode)</p>
+
+    <p style="font-size: 36px;font-weight: bold;padding-top: 0px;padding-left: 433px;">@Html.DisplayFor(model => model.PalletWeight)</p>
+<table style="
+    margin-top: 166px;
+    margin-left: 247px;
+">
+  @foreach(var box in Model.BoxesFirstSeries){
+    <tr style="height: 45px;font-size: 36px;">
+     <td>@box.Barcode</td>
+     <td>@box.Weight</td>    
+    </tr>
+  }
+</table>
+<table style="
+    margin-top: 166px;
+    margin-left: 580px;
+">
+  @foreach(var box in Model.BoxesSecondSeries){
+    <tr style="height: 45px;font-size: 36px;">
+     <td>@box.Barcode</td>
+     <td>@box.Weight</td>    
+    </tr>
+  }
+</table>
+<table style="
+    margin-top: 166px;
+    margin-left: 913px;
+">
+  @foreach(var box in Model.BoxesThirdSeries){
+    <tr style="height: 45px;font-size: 36px;">
+     <td>@box.Barcode</td>
+     <td>@box.Weight</td>    
+    </tr>
+  }
+</table>
+
+</div>

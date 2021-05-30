@@ -1,0 +1,111 @@
+<div class=" box-header with-border small">
+  <div class="row" >
+    <input class="form-control" type="range" min="1" max="4000" [(ngModel)]="salesZoom" (change)="changeZoom()">
+  </div>
+  
+  <h3>Sales:</h3>
+  <svg style="width: 100%;height:auto" [attr.viewBox]="zoomBox"  class="img-fluid" transform='scale(1,1)'>
+    <g *ngFor="let point of points">
+      <text [attr.y]="240 - point.y" [attr.x]="point.x+17" transform="scale(1,1)">${{point.y |number:'0.2-2'}}K</text>
+      <rect [attr.y]="210-point.y" [attr.x]="point.x" transform='translate(25 32)' width="10" [attr.height]="point.y"
+        style="fill:#f90;stroke-width:1;stroke:rgb(0,0,0)" />
+      <text [attr.y]="260" [attr.x]="point.x+20" font-size="smaller" transform="scale(1,1)">{{point.month}}</text>
+    </g>
+    <g>
+      <line x1="0" y1="270" x2="800" y2="270" style="stroke:rgb(255,0,0);stroke-width:3" />
+      <text x="820" y="0" font-size="smaller" transform="scale(1,1)">Month/Year</text>
+    </g>
+    <g>
+      <line x1="0" y1="0" x2="0" y2="270" style="stroke:rgb(255,0,0);stroke-width:6" />
+      <text x="800" y="280" transform="scale(1,1)">USD</text>
+    </g>
+  </svg>
+  <h3>Expenses:</h3>
+  <svg style="width: 100%;height:auto" class="img-fluid" transform='scale(1,1)'[attr.viewBox]="zoomBox">
+    <g *ngFor="let point of billPoints">
+      <text [attr.y]="240 - point.y" [attr.x]="point.x+17" transform="scale(1,1)">${{point.y |number:'0.2-2'}}K</text>
+      <rect [attr.y]="210-point.y" [attr.x]="point.x" transform='translate(25 32)' width="10" [attr.height]="point.y"
+        style="fill:#f90;stroke-width:1;stroke:rgb(0,0,0)" />
+      <text [attr.y]="260" [attr.x]="point.x+20" font-size="smaller" transform="scale(1,1)">{{point.month}}</text>
+    </g>
+    <g>
+      <line x1="0" y1="270" x2="800" y2="270" style="stroke:rgb(255,0,0);stroke-width:3" />
+      <text x="820" y="0" transform="scale(1,1)">Month/Year</text>
+    </g>
+    <g>
+      <line x1="0" y1="0" x2="0" y2="270" style="stroke:rgb(255,0,0);stroke-width:6" />
+      <text x="800" y="280" font-size="smaller" transform="scale(1,1)">USD</text>
+    </g>
+  </svg>
+  <h3>Pallets DTY:</h3>
+  <svg style="width: 100%;height:auto" class="img-fluid" transform='scale(1,1)' [attr.viewBox]="zoomBox">
+    <g *ngFor="let point of dtyPalletPoints">
+      <text [attr.y]="240 - point.y" [attr.x]="point.x+17" transform="scale(1,1)">{{point.y |number:'0.2-2'}}</text>
+      <rect [attr.y]="210-point.y" [attr.x]="point.x" transform='translate(25 32)' width="10" [attr.height]="point.y"
+        style="fill:#f90;stroke-width:1;stroke:rgb(0,0,0)" />
+      <text [attr.y]="260" [attr.x]="point.x+20" font-size="smaller" transform="scale(1,1)">{{point.month}}</text>
+    </g>
+    <g>
+      <line x1="0" y1="270" x2="800" y2="270" style="stroke:rgb(255,0,0);stroke-width:3" />
+      <text x="820" y="0" transform="scale(1,1)">Color</text>
+    </g>
+    <g>
+      <line x1="0" y1="0" x2="0" y2="270" style="stroke:rgb(255,0,0);stroke-width:6" />
+      <text x="0" y="280" transform="scale(1,1)">Tons</text>
+    </g>
+  </svg>
+
+  <h3>Pallets FDY:</h3>
+  <svg style="width: 100%;height:auto" class="img-fluid" transform='scale(1,1)' [attr.viewBox]="zoomBox">
+    <g *ngFor="let point of fdyPalletPoints">
+      <text [attr.y]="240 - point.y" [attr.x]="point.x+17" transform="scale(1,1)">{{point.y |number:'0.2-2'}}</text>
+      <rect [attr.y]="210-point.y" [attr.x]="point.x" transform='translate(25 32)' width="10" [attr.height]="point.y"
+        style="fill:#f90;stroke-width:1;stroke:rgb(0,0,0)" />
+      <text [attr.y]="260" [attr.x]="point.x+20" font-size="smaller" transform="scale(1,1)">{{point.month}}</text>
+    </g>
+    <g>
+      <line x1="0" y1="270" x2="800" y2="270" style="stroke:rgb(255,0,0);stroke-width:3" />
+      <text x="820" y="0" transform="scale(1,1)">Color</text>
+    </g>
+    <g>
+      <line x1="0" y1="0" x2="0" y2="270" style="stroke:rgb(255,0,0);stroke-width:6" />
+      <text x="0" y="280" transform="scale(1,1)">Tons</text>
+    </g>
+  </svg>
+
+  <h3 class="mt-5">Alerts:</h3>
+  <p>These pallets are selling well and we don't have enough of them in our stock:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Color Code</th>
+        <th scope="col">Ratio Of Selling</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let alert of colorAlerts">
+        <td>{{alert.ColorCode}}<span *ngIf="alert.Intermingle">-</span>{{alert.Intermingle}}<span
+            *ngIf="alert.BobbinSize">-</span>{{alert.BobbinSize}}</td>
+        <td>{{alert.Weight | number:'1.2-3'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Color selling ratio:</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Color Code</th>
+        <th scope="col">Ratio Of Selling</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let colorRatio of colorSellingRatios">
+        <td>{{colorRatio.ColorCode}}<span *ngIf="colorRatio.Intermingle">-</span>{{colorRatio.Intermingle}}<span
+            *ngIf="colorRatio.BobbinSize">-</span>{{colorRatio.BobbinSize}}</td>
+        <td>{{colorRatio.Weight | number:'1.2-3'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

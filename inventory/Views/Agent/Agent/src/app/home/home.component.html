@@ -1,0 +1,51 @@
+<div class=" box-header with-border mt-3">
+    <input
+      [(ngModel)]="searchText"
+      placeholder="search text goes here"
+      class="form-control col-md-3 ml-2 mb-3"
+    />
+    <a
+      class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+      [routerLink]="['../insert']"
+      >Add</a
+    >
+    <table class="table table-striped able-sm mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th class="d-none d-sm-block" scope="col">#</th>
+          <th class="hide-on-large" scope="col">Details</th>
+          <th class="hide-on-small" scope="col">Agent Name</th>
+          <th class="hide-on-small" scope="col">Address</th>
+          <th class="hide-on-small"  scope="col">City</th>
+          <th class="hide-on-small"  scope="col">Zip Code</th>
+          <th class="hide-on-small"  scope="col">Phone</th>
+          <th class="hide-on-small" scope="col">Mobile Phone</th>
+          <th class="hide-on-small"  scope="col">Email</th>
+          <th class="hide-on-small"  scope="col">Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let agent of agents | filter: searchText"
+          (click)="singleClick($event)"
+          (dblclick)="doubleClick($event)"
+        >
+          <td class="d-none d-sm-block" scope="col">
+            <a routerLink="/edit" [queryParams]="{id: agent.AgentId}" >
+            {{ agent.AgentId }}</a></td>
+          <td class="hide-on-large" scope="col"><p>{{ agent.Name }}, {{ agent.Address }}, {{ agent.Address }}
+            {{ agent.City }}, {{ agent.Phone }}, {{ agent.MobilePhone }}, {{ agent.Email }}
+          </p></td>
+          <td class="hide-on-small" scope="col">{{ agent.Name }}</td>
+          <td class="hide-on-small" scope="col">{{ agent.Address }}</td>
+          <td class="hide-on-small"  scope="col">{{ agent.City }}</td>
+          <td class="hide-on-small"  scope="col">{{ agent.ZipCode }}</td>
+          <td class="hide-on-small"  scope="col">{{ agent.Phone }}</td>
+          <td class="hide-on-small" scope="col">{{ agent.MobilePhone }}</td>
+          <td class="hide-on-small"  scope="col">{{ agent.Email }}</td>
+          <td class="hide-on-small" scope="col">{{ agent.Website }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,37 @@
+<div class=" box-header with-border">
+  <input
+    [(ngModel)]="searchText"
+    placeholder="search text goes here"
+    class="form-control col-md-3 ml-2 mb-3"
+  />
+  <a
+    class="btn btn-success btn-md btn-block col-md-1 ml-2 mb-3"
+    [routerLink]="['../insert']"
+    >Add</a
+  >
+  <table class="table table-striped able-sm mt-2">
+    <thead class="thead-dark">
+      <tr>
+        <th class="d-none d-sm-block" scope="col" (click)="Sort('ColorCode')">#</th>
+        <th scope="col" (click)="Sort('ColorCode')">ColorCode</th>
+        <th scope="col" (click)="Sort('Color')">Color</th>
+        <th scope="col" (click)="Sort('Catalogue')">Catalogue</th>
+        <th scope="col" (click)="Sort('ColorCode')">PageNumber</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let color of colors | filter: searchText"        
+        (dblclick)="doubleClick($event)"
+      >
+        <td scope="col" ><a          
+          href="./edit?id={{color.ColorCode}}"
+          >{{ color.Id }}</a></td>
+        <td scope="col">{{ color.ColorCode }}</td>
+        <td scope="col" [style.background-color]="color.Color">{{ color.Color }}</td>
+        <td scope="col">{{ color.Catalogue }}</td>
+        <td scope="col">{{ color.PageNumber }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,45 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button
+      class="btn bg-secondary  btn-block col-md-3"
+      [routerLink]="['../index']"
+    >
+      back
+    </button>
+  </div>
+  <form>
+    <div class="mb-3">
+      <label for="proformaItem.Description">Description:</label>
+      <input
+        class="form-control"
+        id="proformaItem.Description"
+        name="proformaItem.Description"
+        type="text"
+        [(ngModel)]="proformaItem.Description"
+      />
+    </div>   
+    <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-secondary btn-lg btn-block"
+          type="button"
+          (click)="Cancel()"
+        >
+          Cancel
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button
+          class="btn btn-success btn-lg btn-block"
+          type="button"
+          value="Save"
+          (click)="Save(proformaItem)"
+        >
+          Save
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="saving"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

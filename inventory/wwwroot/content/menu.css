@@ -1,0 +1,8 @@
+.side-menu{
+
+}    
+@media (max-width: 800px) {
+  .side-menu{
+      width:100%;
+  }
+}

@@ -1,0 +1,155 @@
+<div class="container mt-3">
+    <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+      <button
+        class="btn bg-secondary  btn-block col-md-3"
+        [routerLink]="['../home']"
+      >
+        back
+      </button>
+    </div>
+    <form>        
+      <div class="mb-3">
+        <label for="agent.Name">Agent name:</label>
+        <input
+          class="form-control"
+          id="agent.Name"
+          name="agent.Namer"
+          type="text"
+          [(ngModel)]="agent.Name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Address">Address:</label>
+        <input
+          class="form-control"
+          id="agent.Address"
+          name="agent.Address"
+          type="text"
+          [(ngModel)]="agent.Address"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Address">City:</label>
+        <input
+          class="form-control"
+          id="agent.City"
+          name="agent.City"
+          type="text"
+          [(ngModel)]="agent.City"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.ZipCode">ZipCode:</label>
+        <input
+          class="form-control"
+          id="agent.ZipCode"
+          name="agent.ZipCode"
+          type="text"
+          [(ngModel)]="agent.ZipCode"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Phone">Phone:</label>
+        <input
+          class="form-control"
+          id="agent.Phone"
+          name="agent.Phone"
+          type="text"
+          [(ngModel)]="agent.Phone"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.MobilePhone">Mobile Phone:</label>
+        <input
+          class="form-control"
+          id="agent.MobilePhone"
+          name="agent.MobilePhone"
+          type="text"
+          [(ngModel)]="agent.MobilePhone"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Email">Email:</label>
+        <input
+          class="form-control"
+          id="agent.Email"
+          name="agent.Email"
+          type="text"
+          [(ngModel)]="agent.Email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Website">Website:</label>
+        <input
+          class="form-control"
+          id="agent.Website"
+          name="agent.Website"
+          type="text"
+          [(ngModel)]="agent.Website"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="agent.Vergi">Vergi:</label>
+        <input
+          class="form-control"
+          id="agent.Vergi"
+          name="agent.Vergi"
+          type="text"
+          [(ngModel)]="agent.Vergi"
+        />
+      </div>
+      <hr/>
+      <label>Agent Customers:</label>
+      <mat-form-field class="col">
+            <input
+              type="text"
+              class="col ml-1"
+              name="newAgentCustomer"
+              placeholder="Customer"
+              [formControl]= "CustomersControl"
+              matInput              
+              [matAutocomplete]="auto"          
+            />            
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredOptions | async"  
+                (click) = "UpdateCustomer(option)"
+                [value]="option.CustomerName"            
+              >
+                {{ option.CustomerName }}
+              </mat-option>
+            </mat-autocomplete>
+     </mat-form-field>  
+     <table class="table table-striped able-sm mt-2">
+        <tr *ngFor="let customer of agent.Customers">
+            <td>{{customer.CustomerId}}</td>
+            <td>{{customer.CustomerName}}</td>
+            <td>{{customer.Phone}}</td>
+            <td ><input class="btn btn-danger" (click)="RemoveItem(customer)" type="button" value="X"/></td>
+        </tr>
+     </table>
+     <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+     <div class="row">
+        <div class="col-md-3 mb-3">
+          <button
+            class="btn btn-secondary btn-lg btn-block"
+            type="button"
+            (click)="Cancel()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="col-md-3 mb-3">
+          <button
+            class="btn btn-success btn-lg btn-block"
+            type="button"
+            value="Save"
+            (click)="Save(agent)"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

@@ -1,0 +1,129 @@
+<div class="container mb-3">
+  <div class="row ml-1 mr-1 mt-3 mb-5 text-light ">
+    <button class="btn bg-secondary  btn-block col-md-3" [routerLink]="['../index']">
+      back
+    </button>
+  </div>
+
+  <div class="mb-3">
+    <mat-form-field class="col">
+      <input type="text" class="ml-1 " name="newPalletId" placeholder="Add new Pallet" matInput
+        [formControl]="PalletsControl" [matAutocomplete]="autoPallet" />
+      <mat-autocomplete #autoPallet="matAutocomplete">
+        <mat-option *ngFor="let palletOption of filteredOptions | async"
+          value="{{ palletOption.PalletNumber }} {{ palletOption.Barcode }} {{ palletOption.YarnType }} {{palletOption.Denier}} {{palletOption.Filament}} {{palletOption.Intermingle}} {{palletOption.ColorCode}} {{palletOption.BobbinSize}}"
+          (click)="Add(palletOption)">
+          {{ palletOption.PalletNumber }} {{ palletOption.Barcode }} {{ palletOption.YarnType }} {{palletOption.Denier}}
+          {{palletOption.Filament}} {{palletOption.Intermingle}} {{palletOption.ColorCode}} {{palletOption.BobbinSize}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <label for="box.boxNumber">Pallet Id:</label>
+    <div class="form-control"> {{box.PalletId}}</div>
+  </div>
+  <div class="mb-3">
+    <label for="box.Barcode">Barcode:</label>
+    <div class="input-group mb-3">
+      <input class="form-control" id="box.Barcode" name="box.Barcode" type="text" [(ngModel)]="box.Barcode" />
+    </div>
+    <div class="mb-3">
+      <label for="box.YarnType">Yarn Type:</label>
+      <input class="form-control" id="box.YarnType" name="box.YarnType" type="text" [(ngModel)]="box.YarnType" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Denier">Denier:</label>
+      <input class="form-control" id="box.Denier" name="box.Denier" type="text" [(ngModel)]="box.Denier" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Filament">Filament:</label>
+      <input class="form-control" id="box.Filament" name="box.Filament" type="text" [(ngModel)]="box.Filament" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Intermingle">Intermingle:</label>
+      <input class="form-control" id="box.Intermingle" name="box.Intermingle" type="text"
+        [(ngModel)]="box.Intermingle" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Color">Color:</label>
+      <input class="form-control" id="box.Color" name="box.Color" type="text" [(ngModel)]="box.Color" />
+    </div>
+    <div class="mb-3">
+      <label for="box.boxName">Color Code:</label>
+      <input class="form-control" id="box.ColorCode" name="box.ColorCode" type="text" [(ngModel)]="box.ColorCode" />
+    </div>
+    <div class="mb-3">
+      <label for="box.boxName">Bobbin Size:</label>
+      <input class="form-control" id="box.BobbinSize" name="box.BobbinSize" type="text" [(ngModel)]="box.BobbinSize" />
+    </div>
+
+    <div class="mb-3">
+      <label for="box.Weight">Weight:</label>
+      <input class="form-control" id="box.Weight" name="box.Weight" type="number" [(ngModel)]="box.Weight" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Price">Price:</label>
+      <input class="form-control" id="box.Price" name="box.Price" type="number" [(ngModel)]="box.Price" />
+    </div>
+    <div class="mb-3">
+      <label for="box.RemainWeight">Remain Weight:</label>
+      <input class="form-control" id="box.RemainWeight" name="box.RemainWeight" type="number"
+        [(ngModel)]="box.RemainWeight" />
+    </div>
+    <div class="mb-3">
+      <label for="box.Sold">Sold:</label>
+      <input id="box.Sold" class="ml-3" name="box.Sold" type="checkbox" [(ngModel)]="box.Sold" ng-checked="box.Sold" />
+    </div>
+    <div class="mb-3">
+      <label for="box.IsDelivered">Delivered:</label>
+      <input id="box.IsDelivered" class="ml-3" name="box.IsDelivered" type="checkbox"
+        [(ngModel)]="box.IsDelivered" ng-checked="box.IsDelivered" />
+    </div>
+    <div class="mb-3">
+      <label for="box.DeliveryDate">Delivered on:</label>
+      <input id="box.DeliveryDate" class="ml-3 form-control" name="box.DeliveryDate" type="date"
+        [ngModel]="box.DeliveryDate | date:'yyyy-MM-dd'" ng-checked="box.DeliveryDate" />
+    </div>
+    <p class="bg-success p-3 mb-2" *ngIf="showSuccess">Successfully Saved!</p>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <button class="btn btn-secondary btn-lg btn-block" type="button" (click)="Cancel()">
+          Cancel
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button type="button" class="btn btn-danger btn-lg btn-block" (click)="ConfirmDelete()">
+          Delete
+        </button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button class="btn btn-success btn-lg btn-block" type="button" value="Save" (click)="Save(box)">
+          Save
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <!-- Modal -->
+  <div *ngIf="deletemodal" class="modal-backdrop fade show"></div>
+  <div *ngIf="deletemodal" id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog"
+    style="display: block; padding-right: 12px;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" (click)="CloseModal()">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        <p *ngIf="cannotDelete" class="mr-2 text-danger">Can not delete this pallet. because there is an invoice or box
+          attached to this.</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="CloseModal()">No</button>
+          <button type="button" class="btn btn-danger" (click)="Delete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,42 @@
+import { fromEventPattern } from "rxjs";
+import { Customer } from "../../../../Customer/customers/src/app/Customer";
+import { CommercialInvoiceCommercialInvoiceItem } from "./CommercialInvoiceCommercialInvoiceItem";
+import { CommercialInvoiceDocumentFile } from './CommercialInvoiceDocumentFile';
+import { CommercialInvoiceExtra } from './CommercialInvoiceExtra';
+
+export class CommercialInvoice {
+  public CommercialInvoiceId: number;
+  public CommercialInvoiceDate: string;
+  public CommercialInvoiceDueDate: string;
+  public Customer: Customer;
+  public TotalUsd:number;
+  public Tax:number;
+  public ExchangeRate:number;  
+  public InvoiceId:number;
+  public Discount:number;
+  public Paid:number;
+  public Kdv:number;
+  public Currency:string;
+  public CommercialInvoiceCommercialInvoiceItems:Array<CommercialInvoiceCommercialInvoiceItem>;
+  public Extras:Array<CommercialInvoiceExtra>;  
+  public Files:Array<CommercialInvoiceDocumentFile>;
+  public Comment:string;
+  public Seller:string;
+  public Consignee:string;
+  public Buyer:string;
+  public LoadingDate:string;
+  public CountryOfBeneficiary:string;
+  public FreightForwarder:string;
+  public CountryOfOrigin:string;
+  public CountryOfDestination:string;
+  public PartialShipment:string;
+  public TermsOfDelivery:string;
+  public RelevantLocation:string;
+  public TransportBy:string;
+  public Port:string;
+  public TermsOfPayment:string;
+  public HsCode:string;
+  public PackageDescription:string;
+  public TotalGross:string;
+  public Size:string;
+}
