@@ -52,4 +52,7 @@ PostgreSQL has been used for database but any database can be used if you prefer
 
 <pre>sh rundocker.sh </pre>
 
+You can use these dockers to create your database:
+
+<pre>git clone https://github.com/newkisoft/newki-sql-docker.git</pre>
 
