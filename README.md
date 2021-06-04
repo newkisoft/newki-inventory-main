@@ -75,6 +75,18 @@ Run the box project using this docker
 
 <pre>git clone https://github.com/newkisoft/newki-inventory-box-docker.git</pre>
 
+## Customer docker
+
+Run the customer project using this docker
+
+<pre>git clone https://github.com/newkisoft/newki-inventory-customer-docker.git</pre>
+
+## Vendor docker
+
+Run the vendor project using this docker
+
+<pre>git clone https://github.com/newkisoft/newki-inventory-vendor-docker.git</pre>
+
 ## Libraries
 
 Some classes are shared between micro projects and the main project. I use the project below and Baget to share the classes
